@@ -67,8 +67,44 @@
 // PUNTO 1: COLECCIONES
 object coleccionista {
 	
-	//TODO: Completar la implementacion de este objeto		
-
+	var elementos = #{}
+	
+	method agregarElemento(unElemento) {
+		elementos.add(unElemento)
+	}
+	
+	method quitarElemento(unElemento) {
+		elementos.remove(unElemento)
+	}
+	
+	method objetosFragiles() {
+		return elementos.filter({elemento => elemento.esFragil()})
+	}
+	
+	method objetoFragilMasCaro() {
+		return elementos.max({elemento => elemento.valor()})
+	}
+	
+	method valorEnObjetosFragiles() {
+		return self.objetosFragiles().sum({elemento => elemento.valor()})
+	}
+	
+	method valorEnCategoria(unaCategoria) {
+		return elementos.filter({elemento => elemento.categoria() == unaCategoria}).sum({elemento => elemento.valor()})
+			}
+			
+    method existeElementoDe(unaCategoria) {
+        return elementos.any({elemento => elemento.categoria() == unaCategoria})	
+    }
+    method categorias() {
+    	return elementos.map({elemento => elemento.categoria()}).asSet()
+    }
+    
+    method todosValiosos() {
+    	return elementos.all({elemento => elemento.valor() > 600})
+    }
+    
+    
 }
 
 
@@ -108,8 +144,76 @@ object musica {
 
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
-   //TODO Completar la implementacion de este objeto
+      
+      var microfono 
+      var estuche
+       
+   
+   method valor() {
+   	return 10000 + microfono.valor()
+   }
+   
+   method estucheUsado(unEstuche) {
+   	estuche = unEstuche.esFragil()
+   }
+   
+   method esFragil() {
+     	return estuche
+   }
+   
+   method marcaDeMicrofono(marca) { 
+     microfono = marca    
+     }
+   
+   method categoria() = musica 
+   
 }
 
-//TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
+object microfonoGibson {
+	
+	var property valor = 1000
+	
+} 
+
+object microfonoDiMarzio {
+	
+	var property valor = 800
+	
+} 
+
+
+object estucheFlexible {
+	 	 
+	 var property esFragil = true
+}
+
+object estucheRigido {
+	  var property esFragil = false
+	  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
